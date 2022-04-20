@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  ${WEBID}_nextcloud_db:
+  nextcloud_db:
     image: mariadb:10.5.8
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     networks:
@@ -45,7 +45,7 @@ services:
 ###
 ###################################################################################################################################################################
 
-  ${WEBID}_nextcloud_app:
+  nextcloud_app:
     image: custom-app-nextcloud:23.0.3
     ports: 
       - 9000
@@ -73,8 +73,6 @@ services:
       - MYSQL_PASSWORD=superMDPdbNEXTCL0UD
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-    env_file:
-      - /data/nas/containers/uno/${WEBID}/cfg/db.env
     networks:
       - traefik
     depends_on:
@@ -87,7 +85,7 @@ services:
 #RUN usermod nginx -u 33 -o
 #
 ##################################################################################################################################################################
-  ${WEBID}_nextcloud_web:
+  nextcloud_web:
     image: custom-nginx-nextcloud:1.0
     deploy:
       placement:
