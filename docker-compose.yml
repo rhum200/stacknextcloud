@@ -21,31 +21,18 @@ services:
           memory: 2G
         reservations:
           cpus: '0.1'
-          memory: 64M
+          memory: 16M
 
     volumes:
-      - /data/nas/containers/uno/web-8888/database:/var/lib/mysql
+      - /data/nas/containers/uno/${WEBID}/database:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=mzSbhudskzmcovcdsznjd9
       - MYSQL_PASSWORD=superMDPdbNEXTCL0UD
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-##################################################################################################################################################################
-##### dockerfile pour custom-app-nextcloud:23.0.0 ( changer la version avec la version de nextcloud )
-###FROM nextcloud:23.0.0-fpm
-###RUN apt update -y
-###RUN apt install -y imagemagick
-###RUN apt install --no-install-recommends -y cron
-###RUN echo "* * * * * php -f /var/www/html/cron.php" > /var/spool/cron/crontabs/www-data
-###RUN chown www-data:crontab /var/spool/cron/crontabs/www-data 
-###RUN chmod 600 /var/spool/cron/crontabs/www-data
-###RUN sed -i '1a\service cron start'  /entrypoint.sh
-###RUN apt install -y ffmpeg
-###RUN head /entrypoint.sh
-###################################################################################################################################################################
 
   nextcloud_app:
-    image: custom-app-nextcloud:23.0.3
+    image: dockcms-registry.alieor.net/custom-app-nextcloud:23.0.3
     ports: 
       - 9000
     deploy:
@@ -85,7 +72,7 @@ services:
 #
 ##################################################################################################################################################################
   nextcloud_web:
-    image: custom-nginx-nextcloud:1.0
+    image: dockcms-registry.alieor.net/custom-nginx-nextcloud:1.0
     deploy:
       placement:
         constraints: [node.role == worker]
@@ -107,10 +94,10 @@ services:
         - traefik.enable=true
         - traefik.docker.network=traefik_swarmpit-public
         - traefik.constraint-label=traefik-public
-        - traefik.http.routers.nextcloud-public-http.rule=Host(`${WEBURL}`)
+        - traefik.http.routers.nextcloud-public-http.rule=Host(`$WEBURL`)
         - traefik.http.routers.nextcloud-public-http.entrypoints=http
         - traefik.http.routers.nextcloud-public-http.middlewares=https-redirect
-        - traefik.http.routers.nextcloud-public-https.rule=Host(`${WEBURL}`)
+        - traefik.http.routers.nextcloud-public-https.rule=Host(`$WEBURL`)
         - traefik.http.routers.nextcloud-public-https.entrypoints=https
         - traefik.http.routers.nextcloud-public-https.tls=true
         - traefik.http.services.nextcloud-public-https.loadbalancer.server.port=80
