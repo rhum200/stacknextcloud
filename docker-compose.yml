@@ -24,7 +24,7 @@ services:
           memory: 64M
 
     volumes:
-      - /data/nas/containers/uno/${WEBID}/database:/var/lib/mysql
+      - /data/nas/containers/uno/web-8888/database:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=mzSbhudskzmcovcdsznjd9
       - MYSQL_PASSWORD=superMDPdbNEXTCL0UD
