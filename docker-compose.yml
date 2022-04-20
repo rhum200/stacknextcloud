@@ -42,7 +42,6 @@ services:
 ###RUN sed -i '1a\service cron start'  /entrypoint.sh
 ###RUN apt install -y ffmpeg
 ###RUN head /entrypoint.sh
-###
 ###################################################################################################################################################################
 
   nextcloud_app:
