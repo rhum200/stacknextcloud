@@ -32,7 +32,7 @@ services:
       - MYSQL_USER=nextcloud
 
   nextcloud_app:
-    image: dockcms-registry.alieor.net/custom-app-nextcloud:23.0.3
+    image: dockcms-registry.alienor.net/custom-app-nextcloud:23.0.3
     ports: 
       - 9000
     deploy:
@@ -72,7 +72,7 @@ services:
 #
 ##################################################################################################################################################################
   nextcloud_web:
-    image: dockcms-registry.alieor.net/custom-nginx-nextcloud:1.0
+    image: dockcms-registry.alienor.net/custom-nginx-nextcloud:1.0
     deploy:
       placement:
         constraints: [node.role == worker]
