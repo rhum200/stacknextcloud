@@ -76,7 +76,7 @@ services:
     networks:
       - traefik
     depends_on:
-      - ${WEBID}_nextcloud_db
+      - nextcloud_db
 
 ##################################################################################################################################################################
 ########## dockerfile de custom-nginx-nextcloud:1.0
